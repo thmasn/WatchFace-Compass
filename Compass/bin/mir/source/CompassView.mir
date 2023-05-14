@@ -1,0 +1,439 @@
+[ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 1; ]
+import Toybox.Graphics;
+[ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 2; ]
+import Toybox.Lang;
+[ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 3; ]
+import Toybox.System;
+[ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 4; ]
+import Toybox.WatchUi;
+[ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 5; ]
+using Toybox.Sensor;
+[ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 6; ]
+using Toybox.Timer;
+[ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 8; ]
+class CompassView extends WatchUi.WatchFace{
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 8; ]
+    <init> {
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 68 8 ]
+        %tmp.1 = newa 4;
+        %tmp.2 = newa 2;
+        %tmp.3 = 0;
+        %tmp.4 = dup %tmp.2;
+        %tmp.5 = aputv %tmp.4 0 %tmp.3;
+        %tmp.6 = 80;
+        %tmp.7 = sub 0 %tmp.6;
+        %tmp.8 = dup %tmp.5;
+        %tmp.9 = aputv %tmp.8 1 %tmp.7;
+        %tmp.10 = dup %tmp.1;
+        %tmp.11 = aputv %tmp.10 0 %tmp.9;
+        %tmp.12 = newa 2;
+        %tmp.13 = 40;
+        %tmp.14 = dup %tmp.12;
+        %tmp.15 = aputv %tmp.14 0 %tmp.13;
+        %tmp.16 = 60;
+        %tmp.17 = dup %tmp.15;
+        %tmp.18 = aputv %tmp.17 1 %tmp.16;
+        %tmp.19 = dup %tmp.11;
+        %tmp.20 = aputv %tmp.19 1 %tmp.18;
+        %tmp.21 = newa 2;
+        %tmp.22 = 0;
+        %tmp.23 = dup %tmp.21;
+        %tmp.24 = aputv %tmp.23 0 %tmp.22;
+        %tmp.25 = 20;
+        %tmp.26 = dup %tmp.24;
+        %tmp.27 = aputv %tmp.26 1 %tmp.25;
+        %tmp.28 = dup %tmp.20;
+        %tmp.29 = aputv %tmp.28 2 %tmp.27;
+        %tmp.30 = newa 2;
+        %tmp.31 = 40;
+        %tmp.32 = sub 0 %tmp.31;
+        %tmp.33 = dup %tmp.30;
+        %tmp.34 = aputv %tmp.33 0 %tmp.32;
+        %tmp.35 = 60;
+        %tmp.36 = dup %tmp.34;
+        %tmp.37 = aputv %tmp.36 1 %tmp.35;
+        %tmp.38 = dup %tmp.29;
+        %tmp.39 = aputv %tmp.38 3 %tmp.37;
+        putv self :compassArrowPoints %tmp.39;
+    }
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 8; ]
+    static
+    <init> {
+    }
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 10; ]
+    function initialize() as Void {
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_10_26_start:
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 11 8 ]
+        %tmp.2 = getv ? :WatchFace;
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_10_26_stop:
+    }
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 15; ]
+    function onLayout(dc as Dc) as Void {
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_15_40_start:
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 16 8 ]
+        %tmp.1 = self;
+        %tmp.2 = getv function %tmp.1 :setLayout;
+        %tmp.4 = getv ? :Rez;
+        %tmp.5 = getv %tmp.4 :Layouts;
+        %tmp.6 = getv function %tmp.5 :WatchFace;
+        %tmp.8 = lgetv %dc;
+        %tmp.9 = invoke %tmp.5 %tmp.6(%tmp.8);
+        invoke %tmp.1 %tmp.2(%tmp.9);
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_15_40_stop:
+    }
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 22; ]
+    function onShow() as Void {
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_22_30_start:
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 23 8 ]
+        %tmp.1 = self;
+        %tmp.2 = getv function %tmp.1 :startTimer;
+        invoke %tmp.1 %tmp.2();
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_22_30_stop:
+    }
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 26; @position = 8; ]
+    var center;
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 27; @position = 8; ]
+    var textInfo = "no info";
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 29; ]
+    function onUpdate(dc as Dc) as Void {
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_29_40_start:
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 30 8 ]
+        %tmp.1 = lgetv %dc;
+        %tmp.2 = getv function %tmp.1 :getWidth;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        %tmp.4 = 2;
+        %tmp.5 = div %tmp.3 %tmp.4;
+        putv self :center %tmp.5;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 31 8 ]
+        %tmp.6 = self;
+        %tmp.7 = getv function %tmp.6 :getNewAccelData;
+        invoke %tmp.6 %tmp.7();
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 36 8 ]
+        [ "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_29_40_start" "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_29_40_stop" ]
+        %timeLabel.1 = local;
+        %tmp.9 = getv ? :View;
+        %tmp.10 = getv function %tmp.9 :findDrawableById;
+        %tmp.11 = "TimeLabel";
+        %tmp.12 = invoke %tmp.9 %tmp.10(%tmp.11);
+        %tmp.13 = as %tmp.12 Text;
+        lputv %timeLabel.1 %tmp.13;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 37 8 ]
+        %tmp.14 = lgetv %timeLabel.1;
+        %tmp.15 = getv function %tmp.14 :setText;
+        %tmp.17 = getv ? :textInfo;
+        invoke %tmp.14 %tmp.15(%tmp.17);
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 40 8 ]
+        %tmp.19 = getv ? :View;
+        %tmp.20 = getv function %tmp.19 :onUpdate;
+        %tmp.22 = lgetv %dc;
+        invoke %tmp.19 %tmp.20(%tmp.22);
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 41 8 ]
+        %tmp.23 = self;
+        %tmp.24 = getv function %tmp.23 :drawCompassArrow;
+        %tmp.26 = lgetv %dc;
+        invoke %tmp.23 %tmp.24(%tmp.26);
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_29_40_stop:
+    }
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 47; ]
+    function onHide() as Void {
+    }
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 51; ]
+    function onExitSleep() as Void {
+    }
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 54; ]
+    function startTimer() as Void {
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_54_33_start:
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 55 8 ]
+        %tmp.1 = "starting";
+        putv self :textInfo %tmp.1;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 56 8 ]
+        [ "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_54_33_start" "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_54_33_stop" ]
+        %dataTimer.1 = local;
+        %tmp.4 = getm $.Toybox.Timer;
+        %tmp.5 = getv function ? %tmp.4 :Timer;
+        %tmp.2 = newc %tmp.5 ();
+        lputv %dataTimer.1 %tmp.2;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 57 8 ]
+        %tmp.6 = lgetv %dataTimer.1;
+        %tmp.7 = getv function %tmp.6 :start;
+        %tmp.8 = self;
+        %tmp.9 = getv function %tmp.8 :method;
+        %tmp.11 = const :timerCallback;
+        %tmp.12 = invoke %tmp.8 %tmp.9(%tmp.11);
+        %tmp.13 = 1000;
+        %tmp.14 = true;
+        invoke %tmp.6 %tmp.7(%tmp.12, %tmp.13, %tmp.14);
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_54_33_stop:
+    }
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 61; ]
+    function onEnterSleep() as Void {
+    }
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 64; @position = 8; ]
+    var primaryColor = 0xFFFFFF;
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 65; @position = 8; ]
+    var secondaryColor = 0x2669a3;
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 68; @position = 8; ]
+    var compassArrowPoints;
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 70; ]
+    function fillPolygonTransformed(points as Lang.Array<Lang.Array<Lang.Numeric>>) as Void {
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_70_91_start:
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 72 8 ]
+        [ "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_70_91_start" "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_70_91_stop" ]
+        %size.1 = local;
+        %tmp.1 = lgetv %points;
+        %tmp.2 = getv function %tmp.1 :size;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %size.1 %tmp.3;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 73 8 ]
+        for @_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_73_8_for_test @_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_73_8_for_incr @_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_73_8_for_end;
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_73_8_for_init:
+        [ "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_73_8_for_begin" "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_73_8_for_end" ]
+        %i.2 = local;
+        %tmp.4 = 0;
+        lputv %i.2 %tmp.4;
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_73_8_for_test:
+        %tmp.6 = lgetv %i.2;
+        %tmp.8 = lgetv %size.1;
+        %tmp.9 = lt %tmp.6 %tmp.8;
+        bf %tmp.9 @_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_73_8_for_end;
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_73_8_for_begin:
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_73_42_start:
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 75 12 ]
+        %tmp.10 = lgetv %points;
+        %tmp.12 = lgetv %i.2;
+        %tmp.13 = agetv %tmp.10 %tmp.12;
+        %tmp.14 = lgetv %points;
+        %tmp.16 = lgetv %i.2;
+        %tmp.17 = agetv %tmp.14 %tmp.16;
+        %tmp.18 = 0;
+        %tmp.19 = agetv %tmp.17 %tmp.18;
+        %tmp.21 = getv ? :center;
+        %tmp.22 = add %tmp.19 %tmp.21;
+        %tmp.23 = 0;
+        aputv %tmp.13 %tmp.23 dup %tmp.22;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 76 12 ]
+        %tmp.24 = lgetv %points;
+        %tmp.26 = lgetv %i.2;
+        %tmp.27 = agetv %tmp.24 %tmp.26;
+        %tmp.28 = lgetv %points;
+        %tmp.30 = lgetv %i.2;
+        %tmp.31 = agetv %tmp.28 %tmp.30;
+        %tmp.32 = 1;
+        %tmp.33 = agetv %tmp.31 %tmp.32;
+        %tmp.35 = getv ? :center;
+        %tmp.36 = add %tmp.33 %tmp.35;
+        %tmp.37 = 1;
+        aputv %tmp.27 %tmp.37 dup %tmp.36;
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_73_42_stop:
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_73_8_for_incr:
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 73 ]
+        %tmp.38 = lgetv %i.2;
+        %tmp.39 = 1;
+        %tmp.40 = add %tmp.38 %tmp.39;
+        lputv %i.2 %tmp.40;
+        goto @_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_73_8_for_test;
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_73_8_for_end:
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_70_91_stop:
+    }
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 80; ]
+    function rotatePoint2d(point as Lang.Array<Lang.Numeric>, rotation) {
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_80_71_start:
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 81 8 ]
+        [ "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_80_71_start" "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_80_71_stop" ]
+        %cos.1 = local;
+        %tmp.2 = getv ? :Math;
+        %tmp.3 = getv function %tmp.2 :cos;
+        %tmp.5 = lgetv %rotation;
+        %tmp.6 = invoke %tmp.2 %tmp.3(%tmp.5);
+        lputv %cos.1 %tmp.6;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 82 8 ]
+        [ "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_80_71_start" "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_80_71_stop" ]
+        %sin.2 = local;
+        %tmp.8 = getv ? :Math;
+        %tmp.9 = getv function %tmp.8 :sin;
+        %tmp.11 = lgetv %rotation;
+        %tmp.12 = invoke %tmp.8 %tmp.9(%tmp.11);
+        lputv %sin.2 %tmp.12;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 83 8 ]
+        [ "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_80_71_start" "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_80_71_stop" ]
+        %x.3 = local;
+        %tmp.14 = lgetv %cos.1;
+        %tmp.16 = lgetv %point;
+        %tmp.17 = 0;
+        %tmp.18 = agetv %tmp.16 %tmp.17;
+        %tmp.19 = mul %tmp.14 %tmp.18;
+        %tmp.21 = lgetv %sin.2;
+        %tmp.23 = lgetv %point;
+        %tmp.24 = 1;
+        %tmp.25 = agetv %tmp.23 %tmp.24;
+        %tmp.26 = mul %tmp.21 %tmp.25;
+        %tmp.27 = sub %tmp.19 %tmp.26;
+        lputv %x.3 %tmp.27;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 84 8 ]
+        [ "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_80_71_start" "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_80_71_stop" ]
+        %y.4 = local;
+        %tmp.29 = lgetv %sin.2;
+        %tmp.31 = lgetv %point;
+        %tmp.32 = 0;
+        %tmp.33 = agetv %tmp.31 %tmp.32;
+        %tmp.34 = mul %tmp.29 %tmp.33;
+        %tmp.36 = lgetv %cos.1;
+        %tmp.38 = lgetv %point;
+        %tmp.39 = 1;
+        %tmp.40 = agetv %tmp.38 %tmp.39;
+        %tmp.41 = mul %tmp.36 %tmp.40;
+        %tmp.42 = add %tmp.34 %tmp.41;
+        lputv %y.4 %tmp.42;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 85 8 ]
+        %tmp.43 = newa 2;
+        %tmp.45 = lgetv %x.3;
+        %tmp.46 = dup %tmp.43;
+        %tmp.47 = aputv %tmp.46 0 %tmp.45;
+        %tmp.49 = lgetv %y.4;
+        %tmp.50 = dup %tmp.47;
+        %tmp.51 = aputv %tmp.50 1 %tmp.49;
+        ret %tmp.51;
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_80_71_stop:
+    }
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 87; ]
+    function drawOutlineTransformed(dc as Dc, points as Lang.Array<Lang.Array<Lang.Numeric>>) as Void {
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_87_101_start:
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 88 8 ]
+        [ "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_87_101_start" "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_87_101_stop" ]
+        %size.1 = local;
+        %tmp.1 = lgetv %points;
+        %tmp.2 = getv function %tmp.1 :size;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %size.1 %tmp.3;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 89 8 ]
+        [ "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_87_101_start" "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_87_101_stop" ]
+        %rotation.2 = local;
+        %tmp.4 = .1;
+        lputv %rotation.2 %tmp.4;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 90 8 ]
+        for @_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_8_for_test @_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_8_for_incr @_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_8_for_end;
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_8_for_init:
+        [ "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_8_for_begin" "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_8_for_end" ]
+        %i.3 = local;
+        %tmp.5 = 0;
+        lputv %i.3 %tmp.5;
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_8_for_test:
+        %tmp.7 = lgetv %i.3;
+        %tmp.9 = lgetv %size.1;
+        %tmp.10 = lt %tmp.7 %tmp.9;
+        bf %tmp.10 @_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_8_for_end;
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_8_for_begin:
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_42_start:
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 92 12 ]
+        [ "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_42_start" "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_42_stop" ]
+        %p1.4 = local;
+        %tmp.12 = lgetv %points;
+        %tmp.14 = lgetv %i.3;
+        %tmp.15 = agetv %tmp.12 %tmp.14;
+        lputv %p1.4 %tmp.15;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 93 12 ]
+        %tmp.16 = self;
+        %tmp.17 = getv function %tmp.16 :rotatePoint2d;
+        %tmp.19 = lgetv %p1.4;
+        %tmp.21 = lgetv %rotation.2;
+        %tmp.22 = invoke %tmp.16 %tmp.17(%tmp.19, %tmp.21);
+        lputv %p1.4 %tmp.22;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 94 12 ]
+        [ "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_42_start" "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_42_stop" ]
+        %p2.5 = local;
+        %tmp.24 = lgetv %points;
+        %tmp.26 = lgetv %i.3;
+        %tmp.27 = 1;
+        %tmp.28 = add %tmp.26 %tmp.27;
+        %tmp.30 = lgetv %size.1;
+        %tmp.31 = mod %tmp.28 %tmp.30;
+        %tmp.32 = agetv %tmp.24 %tmp.31;
+        lputv %p2.5 %tmp.32;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 95 12 ]
+        %tmp.33 = self;
+        %tmp.34 = getv function %tmp.33 :rotatePoint2d;
+        %tmp.36 = lgetv %p2.5;
+        %tmp.38 = lgetv %rotation.2;
+        %tmp.39 = invoke %tmp.33 %tmp.34(%tmp.36, %tmp.38);
+        lputv %p2.5 %tmp.39;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 97 12 ]
+        %tmp.40 = lgetv %dc;
+        %tmp.41 = getv function %tmp.40 :drawLine;
+        %tmp.43 = getv ? :center;
+        %tmp.45 = lgetv %p1.4;
+        %tmp.46 = 0;
+        %tmp.47 = agetv %tmp.45 %tmp.46;
+        %tmp.48 = add %tmp.43 %tmp.47;
+        %tmp.50 = getv ? :center;
+        %tmp.52 = lgetv %p1.4;
+        %tmp.53 = 1;
+        %tmp.54 = agetv %tmp.52 %tmp.53;
+        %tmp.55 = add %tmp.50 %tmp.54;
+        %tmp.57 = getv ? :center;
+        %tmp.59 = lgetv %p2.5;
+        %tmp.60 = 0;
+        %tmp.61 = agetv %tmp.59 %tmp.60;
+        %tmp.62 = add %tmp.57 %tmp.61;
+        %tmp.64 = getv ? :center;
+        %tmp.66 = lgetv %p2.5;
+        %tmp.67 = 1;
+        %tmp.68 = agetv %tmp.66 %tmp.67;
+        %tmp.69 = add %tmp.64 %tmp.68;
+        invoke %tmp.40 %tmp.41(%tmp.48, %tmp.55, %tmp.62, %tmp.69);
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_42_stop:
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_8_for_incr:
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 90 ]
+        %tmp.70 = lgetv %i.3;
+        %tmp.71 = 1;
+        %tmp.72 = add %tmp.70 %tmp.71;
+        lputv %i.3 %tmp.72;
+        goto @_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_8_for_test;
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_90_8_for_end:
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_87_101_stop:
+    }
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 104; ]
+    function timerCallback() as Void {
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_104_37_start:
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 105 8 ]
+        %tmp.1 = "updating";
+        putv self :textInfo %tmp.1;
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_104_37_stop:
+    }
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 108; ]
+    function getNewAccelData() {
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_108_30_start:
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 109 8 ]
+        %tmp.1 = "updating";
+        putv self :textInfo %tmp.1;
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 110 8 ]
+        [ "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_108_30_start" "_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_108_30_stop" ]
+        %sensorInfo.1 = local;
+        %tmp.2 = getm $.Toybox.Sensor;
+        %tmp.3 = getv function %tmp.2 :getInfo;
+        %tmp.4 = invoke %tmp.2 %tmp.3();
+        lputv %sensorInfo.1 %tmp.4;
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_108_30_stop:
+    }
+    [ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 120; ]
+    function drawCompassArrow(dc as Dc) as Void {
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_120_48_start:
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 121 5 ]
+        %tmp.1 = lgetv %dc;
+        %tmp.2 = getv function %tmp.1 :setColor;
+        %tmp.4 = getv ? :secondaryColor;
+        %tmp.5 = 0x000000;
+        invoke %tmp.1 %tmp.2(%tmp.4, %tmp.5);
+[ "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc" 124 8 ]
+        %tmp.6 = self;
+        %tmp.7 = getv function %tmp.6 :drawOutlineTransformed;
+        %tmp.9 = lgetv %dc;
+        %tmp.11 = getv ? :compassArrowPoints;
+        invoke %tmp.6 %tmp.7(%tmp.9, %tmp.11);
+_Users_tp_Documents_GitHub_WatchFace_Compass_Compass_source_CompassView_mc_120_48_stop:
+    }
+}
+[ @file = "/Users/tp/Documents/GitHub/WatchFace-Compass/Compass/source/CompassView.mc"; @line = 1; ]
+<init> {
+}
